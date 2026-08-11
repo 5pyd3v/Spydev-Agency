@@ -63,6 +63,16 @@ export function SectionContentEditor({ type, state, onChange }: Props) {
               onChange={(e) => setContent({ description: e.target.value })}
             />
           </FieldWrapper>
+          <FieldWrapper
+            label="Hero image URL"
+            hint="Shown instead of the abstract graphic when set. Paste a URL or upload via Media Library and paste the link."
+          >
+            <Input
+              value={getStr(state.content, 'visualImage')}
+              onChange={(e) => setContent({ visualImage: e.target.value })}
+              placeholder="https://…"
+            />
+          </FieldWrapper>
           <div className="grid grid-cols-2 gap-4">
             <FieldWrapper label="Primary CTA text">
               <Input

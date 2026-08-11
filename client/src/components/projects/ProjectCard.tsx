@@ -17,7 +17,7 @@ export function ProjectCard({ project, size = 'md' }: { project: Project; size?:
     <Link
       to={`/projects/${project.slug}`}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-accent/40',
+        'card-premium group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.35)]',
         size === 'lg' && 'sm:col-span-2'
       )}
     >

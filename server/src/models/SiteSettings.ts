@@ -69,7 +69,7 @@ const siteSettingsSchema = new Schema<ISiteSettings>(
     address: { type: String, default: '' },
     socialLinks: { type: [socialLinkSchema], default: [] },
     appearance: {
-      primaryColor: { type: String, default: '#39FF88' },
+      primaryColor: { type: String, default: '#1DB954' },
       secondaryColor: { type: String, default: '#0EA5E9' },
       backgroundColor: { type: String, default: '#0A0B0D' },
       surfaceColor: { type: String, default: '#131519' },
@@ -78,7 +78,7 @@ const siteSettingsSchema = new Schema<ISiteSettings>(
       borderRadius: { type: String, enum: ['sm', 'md', 'lg', 'xl'], default: 'xl' },
       fontHeading: { type: String, default: 'Space Grotesk' },
       fontBody: { type: String, default: 'Inter' },
-      defaultTheme: { type: String, enum: ['dark', 'light'], default: 'dark' },
+      defaultTheme: { type: String, enum: ['dark', 'light'], default: 'light' },
     },
     announcement: {
       enabled: { type: Boolean, default: false },

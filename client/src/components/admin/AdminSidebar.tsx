@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { ChevronsLeft, ChevronsRight, X } from 'lucide-react';
 import { ADMIN_NAV } from './adminNav.data';
 import { useAuth } from '@/contexts/AuthContext';
+import { SpyDevMark } from '@/components/brand/SpyDevMark';
 import { cn } from '@/utils/cn';
 
 interface AdminSidebarProps {
@@ -19,10 +20,8 @@ export function AdminSidebar({ collapsed, onToggleCollapsed, mobileOpen, onClose
       <div className="flex items-center justify-between px-4 py-5">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-accent text-sm font-bold text-accent-foreground">
-              S
-            </span>
-            <span className="font-display text-base font-semibold text-foreground">SpyDev</span>
+            <SpyDevMark size={28} />
+            <span className="font-display text-base font-bold uppercase tracking-wide text-foreground">SpyDev</span>
           </div>
         )}
         <button

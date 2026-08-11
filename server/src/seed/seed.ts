@@ -163,6 +163,7 @@ const DEFAULT_SECTIONS: {
       primaryCta: { text: 'Start a project', url: '/start-project' },
       secondaryCta: { text: 'View our work', url: '/projects' },
       trustIndicators: ['50+ Projects shipped', '20+ Clients served', '99% On-time delivery'],
+      visualImage: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&w=1200&q=80',
     },
   },
   { type: 'clients', key: 'clients-main', order: 1, heading: 'Trusted by ambitious teams' },

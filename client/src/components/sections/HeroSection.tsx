@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { buttonVariants } from '@/components/ui/Button';
 import { HeroVisual } from './HeroVisual';
+import { HeroImage } from './HeroImage';
 import type { HeroSectionContent, HomepageSection } from '@/types';
 
 export function HeroSection({ section }: { section: HomepageSection }) {
@@ -86,7 +87,7 @@ export function HeroSection({ section }: { section: HomepageSection }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.15 }}
         >
-          <HeroVisual />
+          {content.visualImage ? <HeroImage src={content.visualImage} /> : <HeroVisual />}
         </motion.div>
       </Container>
     </section>

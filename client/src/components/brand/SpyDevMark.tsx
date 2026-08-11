@@ -1,0 +1,27 @@
+interface SpyDevMarkProps {
+  size?: number;
+  className?: string;
+}
+
+/**
+ * The SpyDev "V" mark: a bold chevron on a rounded white tile with a small
+ * red accent block at the tip — self-contained so it reads correctly
+ * regardless of page theme (used in the navbar, admin sidebar, and favicon).
+ */
+export function SpyDevMark({ size = 32, className }: SpyDevMarkProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+    >
+      <rect x="0" y="0" width="100" height="100" rx="22" fill="#F5F5F4" />
+      <polygon points="18,20 38,20 50,64 42,64" fill="#111114" />
+      <polygon points="82,20 62,20 50,64 58,64" fill="#111114" />
+      <rect x="42" y="76" width="16" height="16" fill="#C8203C" />
+    </svg>
+  );
+}

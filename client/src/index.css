@@ -14,6 +14,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
 
   /* Semantic surface tokens (flip with .dark below) */
   --color-background: var(--background);
@@ -36,8 +37,12 @@
   --radius-2xl: 2.25rem;
   --radius-3xl: 3rem;
 
-  --shadow-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent), 0 8px 40px -8px color-mix(in srgb, var(--accent) 35%, transparent);
+  --shadow-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent), 0 8px 40px -8px color-mix(in srgb, var(--accent) 45%, transparent);
   --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 32px -12px rgba(0, 0, 0, 0.35);
+
+  --color-footer-bg: var(--footer-bg);
+  --color-footer-foreground: var(--footer-foreground);
+  --color-footer-accent: var(--footer-accent);
 
   --animate-marquee: marquee 32s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -54,9 +59,16 @@
 }
 
 :root {
-  --accent: #39ff88;
-  --accent-foreground: #06170c;
+  /* Bright neon lime — the requested #B6FF00, punchy in the padelpit/habyt
+     spirit. Dark foreground since this accent is too light for white text. */
+  --accent: #b6ff00;
+  --accent-foreground: #16210a;
+  /* Cool sky blue — the second "elegant contrasting" color, used for variety
+     without introducing warm tones (per the light/cool Habyt-Padelpit brief). */
   --secondary: #0ea5e9;
+  --secondary-foreground: #042f3d;
+  /* Neon pink, used only for the navbar's gradient underline (pink → lime). */
+  --accent-alt: #ff2ec4;
 
   --background: #ffffff;
   --surface: #f6f7f9;
@@ -65,12 +77,20 @@
   --foreground: #0b0d10;
   --muted: #f1f2f5;
   --muted-foreground: #5c6370;
+
+  /* Footer gets its own dark, warm-neutral palette (deep brown base) with
+     lime accents — a deliberate departure from the rest of the light site. */
+  --footer-bg: #2b1710;
+  --footer-foreground: #ffffff;
+  --footer-accent: #c2e976;
 }
 
 .dark {
-  --accent: #39ff88;
-  --accent-foreground: #06170c;
+  --accent: #b6ff00;
+  --accent-foreground: #16210a;
   --secondary: #38bdf8;
+  --secondary-foreground: #042f3d;
+  --accent-alt: #ff2ec4;
 
   --background: #0a0b0d;
   --surface: #131519;
@@ -79,6 +99,25 @@
   --foreground: #f5f7fa;
   --muted: #16181c;
   --muted-foreground: #9aa1ac;
+
+  --footer-bg: #1c0f09;
+  --footer-foreground: #ffffff;
+  --footer-accent: #c2e976;
+}
+
+/* Admin panel gets its own calmer accent — the public site's neon lime/pink
+   is deliberately bold for marketing, but wrong for a tool used daily for
+   real work. Wrapping AdminLayout (and the login screen) in this class
+   overrides just the interactive accent, leaving neutrals/surfaces as-is. */
+.admin-scope {
+  --accent: #4f46e5;
+  --accent-foreground: #ffffff;
+  --secondary: #0ea5e9;
+  --secondary-foreground: #ffffff;
+}
+.admin-scope.dark {
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -137,4 +176,52 @@ body {
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 999px;
+}
+
+/* Navbar link underline: pink → lime gradient bar, animated in from the
+   center on hover/active rather than a plain solid line. */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-alt), var(--accent));
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+}
+.nav-underline:hover::after,
+.nav-underline[data-active='true']::after {
+  transform: scaleX(1);
+}
+
+/* Premium card gradient border: a soft pink→lime→sky ring that only
+   reveals itself on hover, kept subtle so it reads as polish, not noise. */
+.card-premium {
+  position: relative;
+  isolation: isolate;
+}
+.card-premium::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent-alt), var(--accent), var(--secondary));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.card-premium:hover::before {
+  opacity: 1;
 }

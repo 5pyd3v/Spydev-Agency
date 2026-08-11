@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0b0d" />
+    <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
       content="SpyDev is a premium technology agency building web, mobile, AI and cybersecurity solutions engineered to move businesses forward."
@@ -20,13 +20,13 @@
       // Applied before React mounts to avoid a flash of the wrong theme.
       try {
         var stored = localStorage.getItem('spydev-theme');
-        if (stored === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else {
+        if (stored === 'dark') {
           document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
         }
       } catch (e) {
-        document.documentElement.classList.add('dark');
+        // default: light
       }
     </script>
   </head>

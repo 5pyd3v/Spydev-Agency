@@ -9,6 +9,8 @@ import { Input } from '@/components/admin/form/FormField';
 import { FieldWrapper } from '@/components/admin/form/FormField';
 import { useAuth } from '@/contexts/AuthContext';
 import { getApiErrorMessage } from '@/api/axiosClient';
+import { SpyDevMark } from '@/components/brand/SpyDevMark';
+import { useAdminScope } from '@/hooks/useAdminScope';
 
 const loginSchema = z.object({
   email: z.string().email('Enter a valid email address'),
@@ -18,6 +20,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export function AdminLoginPage() {
+  useAdminScope();
   const { login, isAuthenticated, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,9 +50,7 @@ export function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm">
         <div className="text-center">
-          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-accent text-lg font-bold text-accent-foreground">
-            S
-          </span>
+          <SpyDevMark size={48} className="mx-auto" />
           <h1 className="mt-5 font-display text-2xl font-semibold text-foreground">SpyDev Admin</h1>
           <p className="mt-1.5 text-sm text-muted-foreground">Sign in to manage your site</p>
         </div>

@@ -8,7 +8,6 @@ import './index.css';
 import { router } from './routes/router';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { AppearanceInjector } from './components/AppearanceInjector';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
 const queryClient = new QueryClient({
@@ -28,7 +27,6 @@ createRoot(document.getElementById('root')!).render(
         <HelmetProvider>
           <ThemeProvider>
             <AuthProvider>
-              <AppearanceInjector />
               <RouterProvider router={router} />
               <Toaster
                 position="top-right"

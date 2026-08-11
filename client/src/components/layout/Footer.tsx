@@ -39,18 +39,18 @@ export function Footer() {
   const { data: settings } = useSettings();
 
   return (
-    <footer className="relative mt-32 border-t border-border">
+    <footer className="relative mt-32 bg-footer-bg">
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
-            <Logo />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            <Logo tone="footer" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-footer-foreground/85">
               {settings?.tagline ?? 'Digital Products. Engineered to Move Businesses Forward.'}
             </p>
             {settings?.contactEmail && (
               <a
                 href={`mailto:${settings.contactEmail}`}
-                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent"
+                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-footer-foreground hover:text-footer-accent"
               >
                 <Mail className="h-4 w-4" />
                 {settings.contactEmail}
@@ -68,7 +68,7 @@ export function Footer() {
                       rel="noopener noreferrer"
                       aria-label={social.platform}
                       title={social.platform}
-                      className="group flex h-9 w-9 items-center justify-center rounded-full border border-border text-xs font-semibold text-muted-foreground transition-colors hover:border-accent hover:text-accent"
+                      className="group flex h-9 w-9 items-center justify-center rounded-full border border-footer-foreground/25 text-xs font-semibold text-footer-foreground/90 transition-colors hover:border-footer-accent hover:text-footer-accent"
                     >
                       <span className="group-hover:hidden">{social.platform.charAt(0).toUpperCase()}</span>
                       <ArrowUpRight className="hidden h-4 w-4 group-hover:block" />
@@ -80,13 +80,13 @@ export function Footer() {
 
           {FOOTER_COLUMNS.map((col) => (
             <div key={col.heading}>
-              <h3 className="text-sm font-semibold text-foreground">{col.heading}</h3>
+              <h3 className="text-sm font-semibold text-footer-foreground">{col.heading}</h3>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm text-footer-foreground/85 transition-colors hover:text-footer-accent"
                     >
                       {link.label}
                     </Link>
@@ -97,7 +97,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-footer-foreground/15 pt-6 text-xs text-footer-foreground/75 sm:flex-row">
           <p>{settings?.footerText ?? `© ${new Date().getFullYear()} SpyDev. All rights reserved.`}</p>
           <p>Built by SpyDev — Web · Mobile · AI · Cybersecurity</p>
         </div>

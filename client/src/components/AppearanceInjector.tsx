@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSettings } from '@/hooks/queries/useSettings';
 
 const RADIUS_MAP: Record<string, string> = {
@@ -16,14 +17,25 @@ const RADIUS_MAP: Record<string, string> = {
  */
 export function AppearanceInjector() {
   const { data: settings } = useSettings();
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     if (!settings) return;
     const root = document.documentElement.style;
     const { appearance } = settings;
 
-    if (appearance.primaryColor) root.setProperty('--accent', appearance.primaryColor);
-    if (appearance.secondaryColor) root.setProperty('--secondary', appearance.secondaryColor);
+    // Inline styles beat every stylesheet rule, including the admin panel's
+    // deliberately-different `.admin-scope` accent — so skip the brand
+    // accent/secondary overrides while inside /admin rather than clobbering it.
+    if (!isAdminRoute) {
+      if (appearance.primaryColor) root.setProperty('--accent', appearance.primaryColor);
+      if (appearance.secondaryColor) root.setProperty('--secondary', appearance.secondaryColor);
+    } else {
+      root.removeProperty('--accent');
+      root.removeProperty('--secondary');
+    }
+
     if (appearance.fontHeading) root.setProperty('--font-display', `"${appearance.fontHeading}", "Inter", ui-sans-serif, system-ui, sans-serif`);
     if (appearance.fontBody) root.setProperty('--font-sans', `"${appearance.fontBody}", ui-sans-serif, system-ui, sans-serif`);
     if (appearance.borderRadius && RADIUS_MAP[appearance.borderRadius]) {
@@ -36,7 +48,7 @@ export function AppearanceInjector() {
       link.href = settings.faviconUrl;
       if (!link.parentElement) document.head.appendChild(link);
     }
-  }, [settings]);
+  }, [settings, isAdminRoute]);
 
   return null;
 }
