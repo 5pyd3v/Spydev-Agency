@@ -31,10 +31,17 @@ export function verifyRefreshToken(token: string): { id: string } {
   return jwt.verify(token, env.JWT_REFRESH_SECRET) as { id: string };
 }
 
+// Locally, client (:5173) and server (:5000) are different ports on the same
+// host — "lax" is fine there. In a typical production split (frontend on
+// Vercel, API on Render), they're genuinely different sites, so cookies need
+// "none" to be sent on cross-site fetch/XHR requests at all. "none" requires
+// `secure: true`, which is exactly when isProd is true, so this is safe.
+const crossSiteSameSite = isProd ? ('none' as const) : ('lax' as const);
+
 const baseCookieOpts = {
   httpOnly: true,
   secure: isProd,
-  sameSite: 'lax' as const,
+  sameSite: crossSiteSameSite,
   path: '/',
 };
 
@@ -46,7 +53,7 @@ export function setAuthCookies(res: Response, accessToken: string, refreshToken:
   res.cookie(CSRF_COOKIE, csrfToken, {
     httpOnly: false,
     secure: isProd,
-    sameSite: 'lax',
+    sameSite: crossSiteSameSite,
     path: '/',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
