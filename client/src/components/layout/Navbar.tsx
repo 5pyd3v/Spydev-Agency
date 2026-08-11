@@ -45,10 +45,10 @@ export function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4">
+    <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3 sm:px-4 sm:pt-4">
       <nav
         className={cn(
-          'glass flex w-full max-w-6xl items-center justify-between gap-4 rounded-2xl px-4 py-2.5 transition-shadow duration-300',
+          'glass flex w-full max-w-6xl items-center justify-between gap-3 rounded-2xl px-3 py-2 transition-shadow duration-300 sm:gap-4 sm:px-4 sm:py-2.5',
           scrolled ? 'shadow-soft' : 'shadow-none'
         )}
       >
@@ -171,44 +171,55 @@ export function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.2 }}
-            className="glass absolute inset-x-4 top-[calc(100%+0.5rem)] rounded-2xl p-3 shadow-soft lg:hidden"
-          >
-            <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <RouterNavLink
-                  key={link.href}
-                  to={link.href}
-                  className={({ isActive }) =>
-                    cn(
-                      'rounded-xl px-4 py-3 text-base font-medium text-foreground/90 transition-colors hover:bg-surface-hover',
-                      isActive && 'bg-surface-hover text-foreground'
-                    )
-                  }
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+              aria-hidden
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-x-3 top-[calc(100%+0.5rem)] z-50 overflow-hidden rounded-2xl border border-border bg-background p-2 shadow-2xl sm:inset-x-4 sm:p-3 lg:hidden"
+            >
+              <div className="flex flex-col gap-0.5 sm:gap-1">
+                {navLinks.map((link) => (
+                  <RouterNavLink
+                    key={link.href}
+                    to={link.href}
+                    className={({ isActive }) =>
+                      cn(
+                        'rounded-xl px-3.5 py-2.5 text-sm font-medium text-foreground/90 transition-colors hover:bg-surface-hover sm:px-4 sm:py-3 sm:text-base',
+                        isActive && 'bg-surface-hover text-foreground'
+                      )
+                    }
+                  >
+                    {link.label}
+                  </RouterNavLink>
+                ))}
+              </div>
+              <div className="mt-1.5 flex items-center gap-2 border-t border-border pt-2.5 sm:mt-2 sm:pt-3">
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-surface-hover hover:text-foreground"
+                  aria-label="Toggle theme"
                 >
-                  {link.label}
-                </RouterNavLink>
-              ))}
-            </div>
-            <div className="mt-2 flex items-center gap-2 border-t border-border pt-3">
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground hover:bg-surface-hover hover:text-foreground"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </button>
-              <Link to="/start-project" className={cn(buttonVariants({ size: 'md' }), 'flex-1')}>
-                Start a project
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </motion.div>
+                  {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                </button>
+                <Link to="/start-project" className={cn(buttonVariants({ size: 'sm' }), 'flex-1')}>
+                  Start a project
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

@@ -154,11 +154,22 @@ body {
 }
 
 /* Utility for the floating navbar / glass surfaces */
+/* Base: near-opaque so text stays legible even where backdrop-filter isn't
+   supported or fails to render (notably inconsistent on Android Chrome/
+   WebView) — content behind must never bleed through and collide with text. */
 .glass {
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+/* Enhancement: the lighter true-glass look, only applied when the browser
+   actually supports backdrop-filter (feature-detected, not guessed). */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass {
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+  }
 }
 
 .text-gradient {

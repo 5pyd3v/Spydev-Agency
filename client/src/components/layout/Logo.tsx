@@ -15,11 +15,16 @@ export function Logo({ className, tone = 'default' }: LogoProps) {
   const logoUrl = settings?.logoUrl;
 
   return (
-    <Link to="/" className={cn('flex items-center gap-2.5 shrink-0', className)} aria-label={`${siteName} home`}>
-      {logoUrl ? <img src={logoUrl} alt={siteName} className="h-8 w-auto" /> : <SpyDevMark size={32} />}
+    <Link to="/" className={cn('flex shrink-0 items-center gap-2', className)} aria-label={`${siteName} home`}>
+      {logoUrl ? (
+        <img src={logoUrl} alt={siteName} className="h-7 w-auto sm:h-8" />
+      ) : (
+        <SpyDevMark size={28} className="sm:hidden" />
+      )}
+      {!logoUrl && <SpyDevMark size={32} className="hidden sm:block" />}
       <span
         className={cn(
-          'font-display text-lg font-bold uppercase tracking-wide',
+          'font-display text-base font-bold uppercase tracking-wide sm:text-lg',
           tone === 'footer' ? 'text-footer-foreground' : 'text-foreground'
         )}
       >
