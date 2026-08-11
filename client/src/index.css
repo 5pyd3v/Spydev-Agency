@@ -15,6 +15,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent-alt: var(--accent-alt);
 
   /* Semantic surface tokens (flip with .dark below) */
   --color-background: var(--background);
@@ -67,8 +68,10 @@
      without introducing warm tones (per the light/cool Habyt-Padelpit brief). */
   --secondary: #0ea5e9;
   --secondary-foreground: #042f3d;
-  /* Neon pink, used only for the navbar's gradient underline (pink → lime). */
-  --accent-alt: #ff2ec4;
+  /* Neon red — navbar underline + premium card border glow. Kept out of
+     hover/focus/selection states, which use --secondary instead so the
+     bold brand colors read as intentional, not overused. */
+  --accent-alt: #ff2740;
 
   --background: #ffffff;
   --surface: #f6f7f9;
@@ -90,7 +93,7 @@
   --accent-foreground: #16210a;
   --secondary: #38bdf8;
   --secondary-foreground: #042f3d;
-  --accent-alt: #ff2ec4;
+  --accent-alt: #ff3b54;
 
   --background: #0a0b0d;
   --surface: #131519;
@@ -154,16 +157,36 @@ body {
   height: 100dvh;
 }
 
+/* Text selection and focus rings use --secondary, not the primary --accent —
+   the bold brand lime is reserved for deliberate CTAs/highlights so it reads
+   as intentional rather than showing up on every hover/click. */
 ::selection {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
 }
 
-/* Focus ring — accessible, on-brand */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--secondary);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* Text fields draw their own single focus treatment (a plain border-color
+   change) — skip the generic outline above there so focusing an input never
+   shows two highlights stacked on top of each other. */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+}
+
+/* Tailwind v4 preflight no longer defaults buttons to a pointer cursor —
+   restore it site-wide for every clickable control. */
+button:not(:disabled),
+[role='button'],
+summary,
+select {
+  cursor: pointer;
 }
 
 /* Utility for the floating navbar / glass surfaces */
@@ -202,8 +225,8 @@ body {
   border-radius: 999px;
 }
 
-/* Navbar link underline: pink → lime gradient bar, animated in from the
-   center on hover/active rather than a plain solid line. */
+/* Navbar link underline: solid neon red bar with a soft glow, animated in
+   from the center on hover/active. */
 .nav-underline {
   position: relative;
 }
@@ -215,7 +238,8 @@ body {
   bottom: 2px;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent-alt), var(--accent));
+  background: var(--accent-alt);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent-alt) 65%, transparent);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.25s ease;
@@ -225,8 +249,8 @@ body {
   transform: scaleX(1);
 }
 
-/* Premium card gradient border: a soft pink→lime→sky ring that only
-   reveals itself on hover, kept subtle so it reads as polish, not noise. */
+/* Premium card gradient border: a soft red→sky ring that only reveals
+   itself on hover, kept subtle so it reads as polish, not noise. */
 .card-premium {
   position: relative;
   isolation: isolate;
@@ -237,7 +261,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, var(--accent-alt), var(--accent), var(--secondary));
+  background: linear-gradient(135deg, var(--accent-alt), var(--secondary));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

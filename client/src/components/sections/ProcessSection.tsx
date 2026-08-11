@@ -3,7 +3,10 @@ import { processApi } from '@/api/entities.api';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 import { getIcon } from '@/utils/icons';
+import { cn } from '@/utils/cn';
 import type { HomepageSection } from '@/types';
+
+const ICON_TONES = ['bg-accent text-accent-foreground', 'bg-secondary text-secondary-foreground', 'bg-accent-alt text-white', 'bg-foreground text-background'];
 
 export function ProcessSection({ section }: { section: HomepageSection }) {
   const { data: steps } = useQuery({ queryKey: ['process', 'public'], queryFn: () => processApi.listPublic() });
@@ -24,12 +27,21 @@ export function ProcessSection({ section }: { section: HomepageSection }) {
           {steps.map((step, i) => {
             const Icon = getIcon(step.icon);
             return (
-              <Reveal key={step._id} delay={i * 0.05} className="rounded-3xl border border-border bg-surface p-6">
+              <Reveal
+                key={step._id}
+                delay={i * 0.05}
+                className="group rounded-3xl border border-border bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.35)]"
+              >
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-background text-accent">
+                  <span
+                    className={cn(
+                      'flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110',
+                      ICON_TONES[i % ICON_TONES.length]
+                    )}
+                  >
                     <Icon className="h-4 w-4" />
                   </span>
-                  <span className="font-display text-sm text-muted-foreground/70">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="font-display text-sm text-muted-foreground/50">{String(i + 1).padStart(2, '0')}</span>
                 </div>
                 <h3 className="mt-5 text-sm font-semibold text-foreground">{step.title}</h3>
                 {step.description && <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{step.description}</p>}

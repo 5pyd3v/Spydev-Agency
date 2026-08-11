@@ -98,7 +98,7 @@ export function Navbar() {
                                 to={`/services/${service.slug}`}
                                 className="group flex items-start gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-surface"
                               >
-                                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
+                                <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface text-accent transition-colors group-hover:bg-secondary group-hover:text-secondary-foreground">
                                   <ServiceIcon className="h-4 w-4" />
                                 </span>
                                 <span className="min-w-0">

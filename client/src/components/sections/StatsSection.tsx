@@ -13,7 +13,7 @@ function StatCounter({ item }: { item: StatItem }) {
   const { ref, value } = useCountUp(item.value);
   return (
     <div className="text-center">
-      <p className="font-display text-4xl font-semibold text-foreground sm:text-5xl">
+      <p className="font-display text-3xl font-semibold text-foreground sm:text-4xl">
         <span ref={ref}>{value}</span>
         {item.suffix}
       </p>

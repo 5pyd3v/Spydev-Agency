@@ -30,11 +30,18 @@ export function FaqSection({ section }: { section: HomepageSection }) {
                 <button
                   type="button"
                   onClick={() => setOpenId(isOpen ? null : faq._id)}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left transition-colors hover:bg-surface-hover"
                   aria-expanded={isOpen}
                 >
                   <span className="text-sm font-medium text-foreground">{faq.question}</span>
-                  <ChevronDown className={cn('h-4 w-4 shrink-0 text-muted-foreground transition-transform', isOpen && 'rotate-180')} />
+                  <span
+                    className={cn(
+                      'flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300',
+                      isOpen ? 'rotate-180 bg-secondary text-secondary-foreground' : 'bg-background text-muted-foreground'
+                    )}
+                  >
+                    <ChevronDown className="h-3.5 w-3.5" />
+                  </span>
                 </button>
                 {isOpen && (
                   <div className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground">{faq.answer}</div>

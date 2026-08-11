@@ -27,26 +27,35 @@ export function PricingSection({ section }: { section: HomepageSection }) {
             <Reveal
               key={plan._id}
               className={cn(
-                'flex flex-col rounded-3xl border p-7',
-                plan.isPopular ? 'border-accent bg-surface shadow-glow' : 'border-border bg-surface'
+                'relative flex flex-col overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:-translate-y-1',
+                plan.isPopular
+                  ? 'border-accent bg-surface shadow-glow hover:shadow-glow'
+                  : 'border-border bg-surface hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.35)]'
               )}
             >
               {plan.isPopular && (
-                <span className="mb-4 inline-flex w-fit items-center rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
+                <span className="mb-4 inline-flex w-fit items-center rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
                   Most popular
                 </span>
               )}
               <h3 className="font-display text-lg font-semibold text-foreground">{plan.name}</h3>
               <p className="mt-3 flex items-baseline gap-1">
-                <span className="font-display text-3xl font-semibold text-foreground">{plan.price}</span>
+                <span className="font-display text-3xl font-semibold tracking-tight text-foreground">{plan.price}</span>
                 <span className="text-sm text-muted-foreground">/ {plan.billingPeriod}</span>
               </p>
               {plan.description && <p className="mt-3 text-sm text-muted-foreground">{plan.description}</p>}
 
               <ul className="mt-6 flex-1 space-y-2.5">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-foreground/90">
-                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
+                  <li key={feature} className="flex items-start gap-2.5 text-sm text-foreground/90">
+                    <span
+                      className={cn(
+                        'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full',
+                        plan.isPopular ? 'bg-accent/15 text-accent' : 'bg-secondary/10 text-secondary'
+                      )}
+                    >
+                      <Check className="h-3 w-3" />
+                    </span>
                     {feature}
                   </li>
                 ))}

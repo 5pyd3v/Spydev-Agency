@@ -63,12 +63,12 @@ export function ContactPage() {
 
             <div className="mt-10 space-y-4">
               {settings?.contactEmail && (
-                <a href={`mailto:${settings.contactEmail}`} className="flex items-center gap-3 text-sm text-foreground hover:text-accent">
+                <a href={`mailto:${settings.contactEmail}`} className="flex items-center gap-3 text-sm text-foreground hover:text-secondary">
                   <Mail className="h-4 w-4 text-accent" /> {settings.contactEmail}
                 </a>
               )}
               {settings?.contactPhone && (
-                <a href={`tel:${settings.contactPhone}`} className="flex items-center gap-3 text-sm text-foreground hover:text-accent">
+                <a href={`tel:${settings.contactPhone}`} className="flex items-center gap-3 text-sm text-foreground hover:text-secondary">
                   <Phone className="h-4 w-4 text-accent" /> {settings.contactPhone}
                 </a>
               )}

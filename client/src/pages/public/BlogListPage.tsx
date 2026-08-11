@@ -39,7 +39,7 @@ export function BlogListPage() {
             <Reveal key={post._id}>
               <Link
                 to={`/blog/${post.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-all hover:-translate-y-1 hover:border-accent/40"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-all hover:-translate-y-1 hover:border-secondary/40"
               >
                 <div className="aspect-[16/9] overflow-hidden bg-background">
                   {post.coverImage ? (

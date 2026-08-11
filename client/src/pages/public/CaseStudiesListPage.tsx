@@ -39,14 +39,14 @@ export function CaseStudiesListPage() {
             <Reveal key={cs._id}>
               <Link
                 to={`/case-studies/${cs.slug}`}
-                className="group flex flex-col justify-between gap-6 rounded-3xl border border-border bg-surface p-8 transition-all hover:-translate-y-0.5 hover:border-accent/40 sm:flex-row sm:items-center"
+                className="group flex flex-col justify-between gap-6 rounded-3xl border border-border bg-surface p-8 transition-all hover:-translate-y-0.5 hover:border-secondary/40 sm:flex-row sm:items-center"
               >
                 <div>
                   {cs.client && <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">{cs.client}</p>}
                   <h2 className="mt-1.5 font-display text-2xl font-semibold text-foreground">{cs.title}</h2>
                   {cs.results && <p className="mt-2 max-w-xl text-sm text-muted-foreground line-clamp-2">{cs.results}</p>}
                 </div>
-                <ArrowUpRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent" />
+                <ArrowUpRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-secondary" />
               </Link>
             </Reveal>
           ))}

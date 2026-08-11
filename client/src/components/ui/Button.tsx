@@ -12,14 +12,14 @@ export const buttonVariants = cva(
         secondary:
           'bg-surface text-foreground border border-border hover:bg-surface-hover hover:-translate-y-0.5 active:translate-y-0',
         outline:
-          'bg-transparent text-foreground border border-border hover:border-accent hover:text-accent',
+          'bg-transparent text-foreground border border-border hover:border-secondary hover:text-secondary',
         ghost: 'bg-transparent text-foreground hover:bg-surface-hover',
         link: 'bg-transparent text-accent underline-offset-4 hover:underline p-0',
       },
       size: {
-        sm: 'h-9 px-4 text-sm rounded-full',
-        md: 'h-11 px-6 text-sm rounded-full',
-        lg: 'h-12 px-8 text-base rounded-full',
+        sm: 'h-9 px-4 text-sm rounded-full font-semibold',
+        md: 'h-10 px-6 text-sm rounded-full font-semibold',
+        lg: 'h-12 px-7 text-base rounded-full font-semibold',
         icon: 'h-10 w-10 rounded-full',
       },
     },

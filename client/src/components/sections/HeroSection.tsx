@@ -11,7 +11,7 @@ export function HeroSection({ section }: { section: HomepageSection }) {
   const content = section.content as HeroSectionContent;
 
   return (
-    <section className="relative overflow-hidden pb-20 pt-8 sm:pb-28">
+    <section className="relative overflow-hidden pb-16 pt-6 sm:pb-24 lg:pt-8">
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
         <div>
           {content.badge && (
@@ -30,7 +30,7 @@ export function HeroSection({ section }: { section: HomepageSection }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.4rem]"
+            className="mt-5 font-display text-3xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-4xl lg:text-5xl"
           >
             {content.headline || 'Digital Products. Engineered to Move Businesses Forward.'}
           </motion.h1>
@@ -39,7 +39,7 @@ export function HeroSection({ section }: { section: HomepageSection }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.12 }}
-            className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
+            className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
             {content.description}
           </motion.p>

@@ -70,7 +70,7 @@ export function TeamPage() {
                       href={member.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-accent"
+                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-secondary"
                     >
                       <Link2 className="h-3.5 w-3.5" /> LinkedIn
                     </a>
@@ -80,7 +80,7 @@ export function TeamPage() {
                       href={member.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-accent"
+                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-secondary"
                     >
                       <Link2 className="h-3.5 w-3.5" /> GitHub
                     </a>

@@ -29,7 +29,7 @@ export function ServicesSection({ section }: { section: HomepageSection }) {
           </div>
           <Link
             to="/services"
-            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent sm:flex"
+            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-foreground hover:text-secondary sm:flex"
           >
             View all services
             <ArrowRight className="h-3.5 w-3.5" />
@@ -53,7 +53,7 @@ export function ServicesSection({ section }: { section: HomepageSection }) {
 
         <Link
           to="/services"
-          className="mt-8 flex items-center justify-center gap-1.5 rounded-full py-3 text-sm font-medium text-foreground hover:text-accent sm:hidden"
+          className="mt-8 flex items-center justify-center gap-1.5 rounded-full py-3 text-sm font-medium text-foreground hover:text-secondary sm:hidden"
         >
           View all services
           <ArrowRight className="h-3.5 w-3.5" />

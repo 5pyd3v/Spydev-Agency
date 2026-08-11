@@ -3,7 +3,10 @@ import { technologiesApi } from '@/api/entities.api';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 import { getIcon } from '@/utils/icons';
+import { cn } from '@/utils/cn';
 import type { HomepageSection } from '@/types';
+
+const ICON_TONES = ['text-accent', 'text-secondary', 'text-accent-alt', 'text-foreground'];
 
 export function TechnologiesSection({ section }: { section: HomepageSection }) {
   const { data: technologies } = useQuery({
@@ -23,14 +26,14 @@ export function TechnologiesSection({ section }: { section: HomepageSection }) {
         </Reveal>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
-          {technologies.map((tech) => {
+          {technologies.map((tech, i) => {
             const Icon = getIcon(tech.icon);
             return (
               <span
                 key={tech._id}
-                className="flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm text-foreground transition-colors hover:border-accent/40"
+                className="flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-2 text-sm font-medium text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-secondary/40 hover:shadow-md"
               >
-                <Icon className="h-4 w-4 text-accent" />
+                <Icon className={cn('h-4 w-4', ICON_TONES[i % ICON_TONES.length])} />
                 {tech.name}
               </span>
             );
