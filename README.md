@@ -128,7 +128,7 @@ Image uploads (Media Library, and any "image URL" field with a picker) go throug
 
 ## 11. SEO
 
-`GET /sitemap.xml` and `GET /robots.txt` are generated dynamically by the API from live content (services, projects, case studies, published blog posts). In production, if your frontend and backend are on different domains/subdomains, add a rewrite on the frontend host so `yourdomain.com/sitemap.xml` and `/robots.txt` proxy to the API — see `client/vercel.json` for a ready-made example if deploying the client to Vercel.
+`GET /sitemap.xml` and `GET /robots.txt` are generated dynamically by the API from live content (services, projects, case studies, published blog posts). In production, if your frontend and backend are on different domains/subdomains, add a rewrite on the frontend host so `yourdomain.com/sitemap.xml` and `/robots.txt` proxy to the API — see `vercel.json` (repo root — must live there since Vercel's Root Directory is set to the repo root, not `client/`) for a ready-made example.
 
 ## 12. Deployment
 
