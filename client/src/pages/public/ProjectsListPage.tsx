@@ -63,8 +63,7 @@ export function ProjectsListPage() {
 
         <motion.div
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
+          animate="visible"
           variants={staggerContainer(0.06)}
           className="mt-12 grid gap-5 sm:grid-cols-2"
         >

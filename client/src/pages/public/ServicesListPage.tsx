@@ -34,8 +34,7 @@ export function ServicesListPage() {
 
         <motion.div
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
+          animate="visible"
           variants={staggerContainer(0.08)}
           className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >

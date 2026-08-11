@@ -60,9 +60,12 @@ export function setAuthCookies(res: Response, accessToken: string, refreshToken:
 }
 
 export function clearAuthCookies(res: Response) {
-  res.clearCookie(ACCESS_COOKIE, { path: '/' });
-  res.clearCookie(REFRESH_COOKIE, { path: '/' });
-  res.clearCookie(CSRF_COOKIE, { path: '/' });
+  // Browsers match cookies to clear by name + path + domain; some also expect
+  // sameSite/secure to line up with how the cookie was set, so pass the same
+  // attributes here rather than defaults.
+  res.clearCookie(ACCESS_COOKIE, { path: '/', secure: isProd, sameSite: crossSiteSameSite });
+  res.clearCookie(REFRESH_COOKIE, { path: '/', secure: isProd, sameSite: crossSiteSameSite });
+  res.clearCookie(CSRF_COOKIE, { path: '/', secure: isProd, sameSite: crossSiteSameSite });
 }
 
 export const cookieNames = { ACCESS_COOKIE, REFRESH_COOKIE, CSRF_COOKIE };
