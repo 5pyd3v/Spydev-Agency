@@ -54,7 +54,7 @@ export function ServicesSection({ section }: { section: HomepageSection }) {
 
         <Link
           to="/services"
-          className="mt-8 flex items-center justify-center gap-1.5 text-sm font-medium text-foreground hover:text-accent sm:hidden"
+          className="mt-8 flex items-center justify-center gap-1.5 rounded-full py-3 text-sm font-medium text-foreground hover:text-accent sm:hidden"
         >
           View all services
           <ArrowRight className="h-3.5 w-3.5" />

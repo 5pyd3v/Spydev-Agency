@@ -36,6 +36,14 @@ export function ProjectsSection({ section }: { section: HomepageSection }) {
             <ProjectCard key={project._id} project={project} size={i === 0 ? 'lg' : 'md'} />
           ))}
         </div>
+
+        <Link
+          to="/projects"
+          className="mt-8 flex items-center justify-center gap-1.5 rounded-full py-3 text-sm font-medium text-foreground hover:text-accent sm:hidden"
+        >
+          View all projects
+          <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
       </Container>
     </section>
   );

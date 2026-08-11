@@ -84,7 +84,7 @@ export function AdminSidebar({ collapsed, onToggleCollapsed, mobileOpen, onClose
     <>
       <aside
         className={cn(
-          'sticky top-0 hidden h-screen shrink-0 border-r border-border bg-surface transition-all duration-200 lg:block',
+          'sticky top-0 hidden h-screen-safe shrink-0 border-r border-border bg-surface transition-all duration-200 lg:block',
           collapsed ? 'w-[76px]' : 'w-64'
         )}
       >

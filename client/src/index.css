@@ -141,6 +141,19 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Full-height containers: 100vh first as a fallback, then 100dvh (dynamic
+   viewport height) where supported. Plain 100vh doesn't account for
+   Android Chrome's address bar showing/hiding, which clips or leaves a gap
+   at the bottom of min-h-screen sections as it collapses/expands. */
+.min-h-screen-safe {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.h-screen-safe {
+  height: 100vh;
+  height: 100dvh;
+}
+
 ::selection {
   background-color: var(--accent);
   color: var(--accent-foreground);
