@@ -1,0 +1,37 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# env
+.env
+.env.local
+.env.*.local
+!.env.example
+!**/.env.example
+
+# build output
+dist/
+build/
+**/dist/
+**/build/
+
+# logs
+*.log
+npm-debug.log*
+logs/
+
+# editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# uploads (local-dev fallback storage)
+server/uploads/*
+!server/uploads/.gitkeep
+
+# misc
+coverage/
+.eslintcache
+*.tsbuildinfo
