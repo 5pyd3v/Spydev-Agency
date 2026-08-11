@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://spydev-agency.onrender.com/api/$1" },
     { "source": "/sitemap.xml", "destination": "https://spydev-agency.onrender.com/sitemap.xml" },
     { "source": "/robots.txt", "destination": "https://spydev-agency.onrender.com/robots.txt" },
     { "source": "/(.*)", "destination": "/index.html" }

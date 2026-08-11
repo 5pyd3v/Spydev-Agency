@@ -136,6 +136,7 @@ Image uploads (Media Library, and any "image URL" field with a picker) go throug
 - **Backend** (`server/`): any Node host — Render, Railway, Fly.io, a VPS, AWS/Azure. Build command `npm run build`, start command `npm start`. Set all `server/.env` variables in the host's environment.
 - **Database**: MongoDB Atlas.
 - Update `CLIENT_URL` (server) and `VITE_API_URL` (client) to the real production URLs — CORS and cookies are scoped to these.
+- **Frontend and backend on different domains (e.g. Vercel + Render):** auth cookies must cross an actual different site, which modern Chrome increasingly treats as third-party and blocks outright — no cookie attribute combination fixes that from the browser's side. `vercel.json` in this repo proxies `/api/*` on the frontend's own domain through to the Render backend, so the browser only ever talks to one origin and the auth cookie is genuinely first-party. To use it: set `VITE_API_URL=/api` (a relative path, not the Render URL) in Vercel's environment variables, redeploy the frontend, and the backend's `CLIENT_URL`/CORS config can stay as-is.
 
 ## 13. Security notes
 
