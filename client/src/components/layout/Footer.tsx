@@ -50,7 +50,7 @@ export function Footer() {
             {settings?.contactEmail && (
               <a
                 href={`mailto:${settings.contactEmail}`}
-                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-footer-foreground hover:text-secondary"
+                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-footer-foreground hover:text-footer-foreground/70"
               >
                 <Mail className="h-4 w-4" />
                 {settings.contactEmail}
@@ -68,7 +68,7 @@ export function Footer() {
                       rel="noopener noreferrer"
                       aria-label={social.platform}
                       title={social.platform}
-                      className="group flex h-9 w-9 items-center justify-center rounded-full border border-footer-foreground/25 text-xs font-semibold text-footer-foreground/90 transition-colors hover:border-secondary hover:text-secondary"
+                      className="group flex h-9 w-9 items-center justify-center rounded-full border border-footer-foreground/25 text-xs font-semibold text-footer-foreground/90 transition-colors hover:border-footer-foreground/50 hover:text-footer-foreground/70"
                     >
                       <span className="group-hover:hidden">{social.platform.charAt(0).toUpperCase()}</span>
                       <ArrowUpRight className="hidden h-4 w-4 group-hover:block" />
@@ -86,7 +86,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-sm text-footer-foreground/85 transition-colors hover:text-secondary"
+                      className="text-sm text-footer-foreground/85 transition-colors hover:text-footer-foreground/70"
                     >
                       {link.label}
                     </Link>

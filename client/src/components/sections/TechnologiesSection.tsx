@@ -1,12 +1,11 @@
+import type { CSSProperties } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { technologiesApi } from '@/api/entities.api';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 import { getIcon } from '@/utils/icons';
-import { cn } from '@/utils/cn';
+import { CARD_TONES } from '@/utils/cardTones';
 import type { HomepageSection } from '@/types';
-
-const ICON_TONES = ['text-accent', 'text-secondary', 'text-accent-alt', 'text-foreground'];
 
 export function TechnologiesSection({ section }: { section: HomepageSection }) {
   const { data: technologies } = useQuery({
@@ -28,12 +27,14 @@ export function TechnologiesSection({ section }: { section: HomepageSection }) {
         <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
           {technologies.map((tech, i) => {
             const Icon = getIcon(tech.icon);
+            const tone = CARD_TONES[i % CARD_TONES.length];
             return (
               <span
                 key={tech._id}
-                className="flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-2 text-sm font-medium text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-secondary/40 hover:shadow-md"
+                className="flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-2 text-sm font-medium text-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-[var(--tone-border)] hover:shadow-md"
+                style={{ '--tone-border': tone.bg } as CSSProperties}
               >
-                <Icon className={cn('h-4 w-4', ICON_TONES[i % ICON_TONES.length])} />
+                <Icon className="h-4 w-4" style={{ color: tone.bg }} />
                 {tech.name}
               </span>
             );

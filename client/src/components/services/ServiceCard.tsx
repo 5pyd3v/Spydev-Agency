@@ -1,61 +1,35 @@
+import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import type { Service } from '@/types';
 import { getIcon } from '@/utils/icons';
-import { cn } from '@/utils/cn';
-
-const TONES = [
-  {
-    icon: 'bg-accent text-accent-foreground shadow-[0_12px_32px_-8px_var(--accent)]',
-    glow: 'bg-accent',
-    bar: 'bg-accent',
-    cta: 'group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground',
-  },
-  {
-    icon: 'bg-secondary text-secondary-foreground shadow-[0_12px_32px_-8px_var(--secondary)]',
-    glow: 'bg-secondary',
-    bar: 'bg-secondary',
-    cta: 'group-hover:border-secondary group-hover:bg-secondary group-hover:text-secondary-foreground',
-  },
-  {
-    icon: 'bg-accent-alt text-white shadow-[0_12px_32px_-8px_var(--accent-alt)]',
-    glow: 'bg-accent-alt',
-    bar: 'bg-accent-alt',
-    cta: 'group-hover:border-accent-alt group-hover:bg-accent-alt group-hover:text-white',
-  },
-  {
-    icon: 'bg-foreground text-background shadow-[0_12px_32px_-8px_rgba(0,0,0,0.35)]',
-    glow: 'bg-foreground',
-    bar: 'bg-foreground',
-    cta: 'group-hover:border-foreground group-hover:bg-foreground group-hover:text-background',
-  },
-];
+import { CARD_TONES } from '@/utils/cardTones';
 
 export function ServiceCard({ service, index }: { service: Service; index: number }) {
   const Icon = getIcon(service.icon);
   const number = String(index + 1).padStart(2, '0');
-  const tone = TONES[index % TONES.length];
+  const tone = CARD_TONES[index % CARD_TONES.length];
+  const toneVars = { '--tone-bg': tone.bg, '--tone-text': tone.text, '--tone-shadow': tone.shadow } as CSSProperties;
 
   return (
     <Link
       to={`/services/${service.slug}`}
+      style={toneVars}
       className="card-premium group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.35)]"
     >
       {/* Always-on top accent bar — the card's color identity, not just a hover flourish. */}
-      <div className={cn('absolute inset-x-0 top-0 h-[3px] opacity-80', tone.bar)} aria-hidden />
+      <div className="absolute inset-x-0 top-0 h-[3px] bg-[var(--tone-bg)] opacity-80" aria-hidden />
 
       {/* Ambient tone wash, faintly visible at rest and blooming on hover. */}
       <div
-        className={cn(
-          'pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full opacity-[0.06] blur-3xl transition-opacity duration-500 group-hover:opacity-25',
-          tone.glow
-        )}
+        className="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-[var(--tone-bg)] opacity-[0.08] blur-3xl transition-opacity duration-500 group-hover:opacity-25"
         aria-hidden
       />
 
-      {/* Faint ghost number watermark — the premium-agency "big index" motif, kept subtle. */}
+      {/* Ghost number watermark — kept inside the card's padding box (no
+          negative offsets) so overflow-hidden never clips it mid-glyph. */}
       <span
-        className="pointer-events-none absolute -right-1 -top-3 select-none font-display text-5xl font-bold leading-none text-foreground/[0.04] transition-colors duration-300 group-hover:text-foreground/[0.07]"
+        className="pointer-events-none absolute right-5 top-5 select-none font-display text-4xl font-bold leading-none text-foreground/[0.06] transition-colors duration-300 group-hover:text-foreground/[0.1]"
         aria-hidden
       >
         {number}
@@ -63,10 +37,7 @@ export function ServiceCard({ service, index }: { service: Service; index: numbe
 
       <div className="relative flex items-start justify-between">
         <div
-          className={cn(
-            'flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3',
-            tone.icon
-          )}
+          className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--tone-bg)] text-[var(--tone-text)] shadow-[0_12px_32px_-8px_var(--tone-shadow)] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
         >
           <Icon className="h-5 w-5" />
         </div>
@@ -90,12 +61,7 @@ export function ServiceCard({ service, index }: { service: Service; index: numbe
 
       <div className="relative mt-5 flex items-center gap-3 border-t border-border pt-5">
         <span className="text-sm font-semibold text-foreground">Learn more</span>
-        <span
-          className={cn(
-            'ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground transition-all duration-300',
-            tone.cta
-          )}
-        >
+        <span className="ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground transition-all duration-300 group-hover:border-[var(--tone-bg)] group-hover:bg-[var(--tone-bg)] group-hover:text-[var(--tone-text)]">
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
       </div>

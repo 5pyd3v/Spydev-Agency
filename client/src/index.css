@@ -223,8 +223,8 @@ select {
   border-radius: 999px;
 }
 
-/* Navbar link underline: solid neon red bar with a soft glow, animated in
-   from the center on hover/active. */
+/* Navbar link underline: solid primary-color bar with a soft glow, animated
+   in from the center on hover/active. */
 .nav-underline {
   position: relative;
 }
@@ -236,8 +236,8 @@ select {
   bottom: 2px;
   height: 2px;
   border-radius: 999px;
-  background: var(--accent-alt);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent-alt) 65%, transparent);
+  background: var(--accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 65%, transparent);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.25s ease;

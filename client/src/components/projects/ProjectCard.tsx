@@ -1,7 +1,9 @@
+import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import type { Project } from '@/types/entities';
 import { cn } from '@/utils/cn';
+import { CARD_TONES } from '@/utils/cardTones';
 
 const CATEGORY_LABELS: Record<Project['category'], string> = {
   web: 'Web',
@@ -12,48 +14,27 @@ const CATEGORY_LABELS: Record<Project['category'], string> = {
   ecommerce: 'E-commerce',
 };
 
-const CATEGORY_TONES: Record<Project['category'], { badge: string; cta: string; ring: string }> = {
-  web: {
-    badge: 'bg-secondary text-secondary-foreground',
-    cta: 'group-hover:border-secondary group-hover:bg-secondary group-hover:text-secondary-foreground',
-    ring: 'group-hover:shadow-[0_20px_48px_-20px_var(--secondary)]',
-  },
-  mobile: {
-    badge: 'bg-accent text-accent-foreground',
-    cta: 'group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground',
-    ring: 'group-hover:shadow-[0_20px_48px_-20px_var(--accent)]',
-  },
-  ai: {
-    badge: 'bg-accent-alt text-white',
-    cta: 'group-hover:border-accent-alt group-hover:bg-accent-alt group-hover:text-white',
-    ring: 'group-hover:shadow-[0_20px_48px_-20px_var(--accent-alt)]',
-  },
-  saas: {
-    badge: 'bg-secondary text-secondary-foreground',
-    cta: 'group-hover:border-secondary group-hover:bg-secondary group-hover:text-secondary-foreground',
-    ring: 'group-hover:shadow-[0_20px_48px_-20px_var(--secondary)]',
-  },
-  cybersecurity: {
-    badge: 'bg-foreground text-background',
-    cta: 'group-hover:border-foreground group-hover:bg-foreground group-hover:text-background',
-    ring: 'group-hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.35)]',
-  },
-  ecommerce: {
-    badge: 'bg-accent text-accent-foreground',
-    cta: 'group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground',
-    ring: 'group-hover:shadow-[0_20px_48px_-20px_var(--accent)]',
-  },
+// Fixed decorative palette per category — not tied to admin brand colors,
+// so categories stay visually distinct no matter what's set in Appearance.
+const CATEGORY_TONE_INDEX: Record<Project['category'], number> = {
+  mobile: 0, // red
+  cybersecurity: 1, // black
+  ecommerce: 2, // yellow
+  ai: 3, // orange
+  web: 4, // gray
+  saas: 4, // gray
 };
 
 export function ProjectCard({ project, size = 'md' }: { project: Project; size?: 'md' | 'lg' }) {
-  const tone = CATEGORY_TONES[project.category];
+  const tone = CARD_TONES[CATEGORY_TONE_INDEX[project.category]];
+  const toneVars = { '--tone-bg': tone.bg, '--tone-text': tone.text, '--tone-shadow': tone.shadow } as CSSProperties;
 
   return (
     <Link
       to={`/projects/${project.slug}`}
+      style={toneVars}
       className={cn(
-        'card-premium group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1',
-        tone.ring,
+        'card-premium group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_-20px_var(--tone-shadow)]',
         size === 'lg' && 'sm:col-span-2'
       )}
     >
@@ -70,7 +51,7 @@ export function ProjectCard({ project, size = 'md' }: { project: Project; size?:
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
-        <span className={cn('absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold shadow-sm', tone.badge)}>
+        <span className="absolute left-4 top-4 rounded-full bg-[var(--tone-bg)] px-3 py-1 text-xs font-semibold text-[var(--tone-text)] shadow-sm">
           {CATEGORY_LABELS[project.category]}
         </span>
       </div>
@@ -82,12 +63,7 @@ export function ProjectCard({ project, size = 'md' }: { project: Project; size?:
 
         <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
           <span className="text-sm font-semibold text-foreground">View project</span>
-          <span
-            className={cn(
-              'ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground transition-all duration-300',
-              tone.cta
-            )}
-          >
+          <span className="ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-border text-foreground transition-all duration-300 group-hover:border-[var(--tone-bg)] group-hover:bg-[var(--tone-bg)] group-hover:text-[var(--tone-text)]">
             <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </div>
