@@ -58,6 +58,13 @@
   50% { transform: translateY(-10px); }
 }
 
+/* Indeterminate sweep for the AppLoadingGate progress bar. */
+@keyframes loader-sweep {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(300%); }
+}
+
 :root {
   /* Bright neon lime — the requested #B6FF00, punchy in the padelpit/habyt
      spirit. Dark foreground since this accent is too light for white text. */

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { AppearanceInjector } from '@/components/AppearanceInjector';
 import { ScrollToTop } from '@/components/ScrollToTop';
+import { AppLoadingGate } from '@/components/AppLoadingGate';
 
 /**
  * Sits inside <RouterProvider> (unlike providers in main.tsx) so children
@@ -13,6 +14,7 @@ export function RootLayout() {
       <AppearanceInjector />
       <ScrollToTop />
       <Outlet />
+      <AppLoadingGate />
     </>
   );
 }
