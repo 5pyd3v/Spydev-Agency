@@ -43,7 +43,6 @@
 
   --color-footer-bg: var(--footer-bg);
   --color-footer-foreground: var(--footer-foreground);
-  --color-footer-accent: var(--footer-accent);
 
   --animate-marquee: marquee 32s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -81,11 +80,11 @@
   --muted: #f1f2f5;
   --muted-foreground: #5c6370;
 
-  /* Footer gets its own dark, warm-neutral palette (deep brown base) with
-     lime accents — a deliberate departure from the rest of the light site. */
+  /* Footer gets its own dark, warm-neutral palette (deep brown base) — a
+     deliberate departure from the rest of the light site. Link hovers use
+     --secondary like the rest of the site, not a separate footer accent. */
   --footer-bg: #2b1710;
   --footer-foreground: #ffffff;
-  --footer-accent: #c2e976;
 }
 
 .dark {
@@ -105,7 +104,6 @@
 
   --footer-bg: #1c0f09;
   --footer-foreground: #ffffff;
-  --footer-accent: #c2e976;
 }
 
 /* Admin panel gets its own calmer accent — the public site's neon lime/pink

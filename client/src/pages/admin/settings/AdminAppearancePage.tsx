@@ -10,6 +10,7 @@ interface FormState {
   faviconUrl: string;
   primaryColor: string;
   secondaryColor: string;
+  highlightColor: string;
   backgroundColor: string;
   surfaceColor: string;
   textColor: string;
@@ -43,6 +44,7 @@ export function AdminAppearancePage() {
     faviconUrl: s.faviconUrl,
     primaryColor: s.appearance.primaryColor,
     secondaryColor: s.appearance.secondaryColor,
+    highlightColor: s.appearance.highlightColor,
     backgroundColor: s.appearance.backgroundColor,
     surfaceColor: s.appearance.surfaceColor,
     textColor: s.appearance.textColor,
@@ -64,6 +66,7 @@ export function AdminAppearancePage() {
       appearance: {
         primaryColor: values.primaryColor,
         secondaryColor: values.secondaryColor,
+        highlightColor: values.highlightColor,
         backgroundColor: values.backgroundColor,
         surfaceColor: values.surfaceColor,
         textColor: values.textColor,
@@ -96,9 +99,13 @@ export function AdminAppearancePage() {
 
         <div className="rounded-2xl border border-border p-5">
           <h2 className="text-sm font-semibold text-foreground">Colors</h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Background, Surface, and Text apply to light mode only — dark mode keeps its own tuned palette for contrast.
+          </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <ColorField label="Primary (accent)" value={values.primaryColor} onChange={(v) => setValue('primaryColor', v)} />
             <ColorField label="Secondary" value={values.secondaryColor} onChange={(v) => setValue('secondaryColor', v)} />
+            <ColorField label="Highlight (nav underline, card accents)" value={values.highlightColor} onChange={(v) => setValue('highlightColor', v)} />
             <ColorField label="Background" value={values.backgroundColor} onChange={(v) => setValue('backgroundColor', v)} />
             <ColorField label="Surface" value={values.surfaceColor} onChange={(v) => setValue('surfaceColor', v)} />
             <ColorField label="Text" value={values.textColor} onChange={(v) => setValue('textColor', v)} />

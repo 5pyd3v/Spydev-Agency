@@ -21,6 +21,7 @@ export interface ISiteSettings extends Document {
   appearance: {
     primaryColor: string;
     secondaryColor: string;
+    highlightColor: string;
     backgroundColor: string;
     surfaceColor: string;
     textColor: string;
@@ -69,11 +70,12 @@ const siteSettingsSchema = new Schema<ISiteSettings>(
     address: { type: String, default: '' },
     socialLinks: { type: [socialLinkSchema], default: [] },
     appearance: {
-      primaryColor: { type: String, default: '#1DB954' },
+      primaryColor: { type: String, default: '#B6FF00' },
       secondaryColor: { type: String, default: '#0EA5E9' },
-      backgroundColor: { type: String, default: '#0A0B0D' },
-      surfaceColor: { type: String, default: '#131519' },
-      textColor: { type: String, default: '#F5F7FA' },
+      highlightColor: { type: String, default: '#FF2740' },
+      backgroundColor: { type: String, default: '#FFFFFF' },
+      surfaceColor: { type: String, default: '#F6F7F9' },
+      textColor: { type: String, default: '#0B0D10' },
       buttonStyle: { type: String, enum: ['rounded', 'pill', 'square'], default: 'pill' },
       borderRadius: { type: String, enum: ['sm', 'md', 'lg', 'xl'], default: 'xl' },
       fontHeading: { type: String, default: 'Space Grotesk' },

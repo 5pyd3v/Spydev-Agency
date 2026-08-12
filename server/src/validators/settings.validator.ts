@@ -31,6 +31,7 @@ export const updateSettingsSchema = z.object({
     .object({
       primaryColor: z.string().optional(),
       secondaryColor: z.string().optional(),
+      highlightColor: z.string().optional(),
       backgroundColor: z.string().optional(),
       surfaceColor: z.string().optional(),
       textColor: z.string().optional(),

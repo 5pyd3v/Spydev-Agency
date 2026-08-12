@@ -17,16 +17,41 @@
     />
     <title>SpyDev — Digital Products, Engineered to Move Businesses Forward</title>
     <script>
-      // Applied before React mounts to avoid a flash of the wrong theme.
+      // Applied before React mounts to avoid a flash of the wrong theme or
+      // the static index.css color defaults while the admin-configured
+      // Appearance settings are still loading (mirrored to localStorage by
+      // AppearanceInjector on every successful fetch).
+      var spydevIsDark = false;
       try {
-        var stored = localStorage.getItem('spydev-theme');
-        if (stored === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
+        spydevIsDark = localStorage.getItem('spydev-theme') === 'dark';
       } catch (e) {
         // default: light
+      }
+      document.documentElement.classList.toggle('dark', spydevIsDark);
+
+      try {
+        var spydevIsAdminRoute = window.location.pathname.indexOf('/admin') === 0;
+        var spydevAppearance = !spydevIsAdminRoute && JSON.parse(localStorage.getItem('spydev-appearance') || 'null');
+        if (spydevAppearance) {
+          var spydevStyle = document.documentElement.style;
+          if (spydevAppearance.accent) spydevStyle.setProperty('--accent', spydevAppearance.accent);
+          if (spydevAppearance.accentForeground) spydevStyle.setProperty('--accent-foreground', spydevAppearance.accentForeground);
+          if (spydevAppearance.secondary) spydevStyle.setProperty('--secondary', spydevAppearance.secondary);
+          if (spydevAppearance.secondaryForeground) spydevStyle.setProperty('--secondary-foreground', spydevAppearance.secondaryForeground);
+          if (spydevAppearance.accentAlt) spydevStyle.setProperty('--accent-alt', spydevAppearance.accentAlt);
+          if (!spydevIsDark) {
+            if (spydevAppearance.background) spydevStyle.setProperty('--background', spydevAppearance.background);
+            if (spydevAppearance.surface) spydevStyle.setProperty('--surface', spydevAppearance.surface);
+            if (spydevAppearance.foreground) spydevStyle.setProperty('--foreground', spydevAppearance.foreground);
+          }
+          var spydevRadiusMap = { sm: '0.5rem', md: '0.875rem', lg: '1.25rem', xl: '1.75rem' };
+          if (spydevAppearance.radius && spydevRadiusMap[spydevAppearance.radius]) {
+            spydevStyle.setProperty('--radius-xl', spydevRadiusMap[spydevAppearance.radius]);
+          }
+        }
+      } catch (e) {
+        // no cache yet (first-ever visit) — falls back to index.css defaults
+        // until the first successful settings fetch populates the cache.
       }
     </script>
   </head>

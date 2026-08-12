@@ -125,6 +125,7 @@ export interface SiteSettings {
   appearance: {
     primaryColor: string;
     secondaryColor: string;
+    highlightColor: string;
     backgroundColor: string;
     surfaceColor: string;
     textColor: string;
