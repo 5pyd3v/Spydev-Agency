@@ -5,11 +5,13 @@ import { teamApi } from '@/api/entities.api';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 import { Skeleton } from '@/components/ui/Skeleton';
-import { staggerContainer } from '@/animations/variants';
+import { fadeInUp, reducedMotionVariants } from '@/animations/variants';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { motion } from 'framer-motion';
 
 export function TeamPage() {
   const { data: team, isLoading } = useQuery({ queryKey: ['team', 'public'], queryFn: () => teamApi.listPublic() });
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <>
@@ -26,19 +28,18 @@ export function TeamPage() {
           </h1>
         </Reveal>
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer(0.06)}
-          className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {isLoading && Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-64 rounded-3xl" />)}
 
-          {team?.map((member) => (
+          {team?.map((member, i) => (
             <motion.div
               key={member._id}
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              className="rounded-3xl border border-border bg-surface p-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={prefersReducedMotion ? reducedMotionVariants : fadeInUp}
+              transition={{ delay: (i % 3) * 0.06 }}
+              className="rounded-3xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_-20px_rgba(0,0,0,0.35)]"
             >
               <div className="flex items-center gap-4">
                 {member.profileImage ? (
@@ -89,7 +90,7 @@ export function TeamPage() {
               )}
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </Container>
     </>
   );

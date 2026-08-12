@@ -4,11 +4,13 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { Reveal } from '@/components/ui/Reveal';
 import { ServiceCard } from '@/components/services/ServiceCard';
 import { usePublicServices } from '@/hooks/queries/useServices';
-import { staggerContainer } from '@/animations/variants';
+import { fadeInUp, reducedMotionVariants } from '@/animations/variants';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { motion } from 'framer-motion';
 
 export function ServicesListPage() {
   const { data: services, isLoading } = usePublicServices();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <>
@@ -32,12 +34,7 @@ export function ServicesListPage() {
           </p>
         </Reveal>
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer(0.08)}
-          className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {isLoading &&
             Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-72 rounded-3xl" />)}
 
@@ -46,11 +43,18 @@ export function ServicesListPage() {
           )}
 
           {services?.map((service, i) => (
-            <motion.div key={service._id} variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}>
+            <motion.div
+              key={service._id}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-60px' }}
+              variants={prefersReducedMotion ? reducedMotionVariants : fadeInUp}
+              transition={{ delay: (i % 3) * 0.06 }}
+            >
               <ServiceCard service={service} index={i} />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </Container>
     </>
   );
