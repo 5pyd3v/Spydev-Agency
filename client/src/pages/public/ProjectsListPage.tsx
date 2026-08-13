@@ -63,8 +63,8 @@ export function ProjectsListPage() {
           ))}
         </Reveal>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          {isLoading && Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-80 rounded-3xl" />)}
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {isLoading && Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-72 rounded-3xl" />)}
 
           {!isLoading && projects.length === 0 && (
             <p className="col-span-full text-sm text-muted-foreground">No projects found in this category.</p>
