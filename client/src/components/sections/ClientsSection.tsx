@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { clientsApi } from '@/api/entities.api';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 import type { HomepageSection } from '@/types';
 
 export function ClientsSection({ section }: { section: HomepageSection }) {
@@ -19,10 +20,21 @@ export function ClientsSection({ section }: { section: HomepageSection }) {
             {clients.map((client) =>
               client.websiteUrl ? (
                 <a key={client._id} href={client.websiteUrl} target="_blank" rel="noopener noreferrer">
-                  <img src={client.logoUrl} alt={client.name} className="h-7 w-auto object-contain sm:h-8" />
+                  <img
+                    src={optimizedImageUrl(client.logoUrl, 200)}
+                    alt={client.name}
+                    loading="lazy"
+                    className="h-7 w-auto object-contain sm:h-8"
+                  />
                 </a>
               ) : (
-                <img key={client._id} src={client.logoUrl} alt={client.name} className="h-7 w-auto object-contain sm:h-8" />
+                <img
+                  key={client._id}
+                  src={optimizedImageUrl(client.logoUrl, 200)}
+                  alt={client.name}
+                  loading="lazy"
+                  className="h-7 w-auto object-contain sm:h-8"
+                />
               )
             )}
           </div>

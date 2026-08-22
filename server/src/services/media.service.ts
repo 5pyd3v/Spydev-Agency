@@ -22,7 +22,18 @@ export function uploadBufferToCloudinary(buffer: Buffer, folder = 'spydev'): Pro
 
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
-      { folder, resource_type: 'image' },
+      {
+        folder,
+        resource_type: 'image',
+        // Compression pipeline: re-encode to the best format/quality for the
+        // pixel content (q_auto), and cap the stored original at a sane max
+        // dimension (crop:'limit' only ever shrinks, never upscales or
+        // crops content) so a visitor never downloads a multi-megabyte
+        // camera-original for what renders as a few-hundred-pixel-wide card.
+        quality: 'auto:good',
+        fetch_format: 'auto',
+        transformation: [{ width: 2560, height: 2560, crop: 'limit' }],
+      },
       (error, result) => {
         if (error || !result) return reject(error ?? new Error('Cloudinary upload failed'));
         resolve({

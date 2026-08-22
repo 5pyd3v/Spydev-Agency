@@ -5,6 +5,7 @@ import type { Project } from '@/types/entities';
 import { cn } from '@/utils/cn';
 import { CARD_TONES } from '@/utils/cardTones';
 import { CATEGORY_LABELS, CATEGORY_TONE_INDEX } from '@/utils/projectCategories';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 
 export function ProjectCard({ project, size = 'md' }: { project: Project; size?: 'md' | 'lg' }) {
   const tone = CARD_TONES[CATEGORY_TONE_INDEX[project.category]];
@@ -22,8 +23,9 @@ export function ProjectCard({ project, size = 'md' }: { project: Project; size?:
       <div className={cn('relative overflow-hidden bg-background', size === 'lg' ? 'aspect-[21/9]' : 'aspect-[16/11]')}>
         {project.coverImage ? (
           <img
-            src={project.coverImage}
+            src={optimizedImageUrl(project.coverImage, 700)}
             alt={project.name}
+            loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (

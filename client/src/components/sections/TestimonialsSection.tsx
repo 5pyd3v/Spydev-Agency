@@ -3,6 +3,7 @@ import { Star, Quote } from 'lucide-react';
 import { testimonialsApi } from '@/api/entities.api';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 import type { HomepageSection } from '@/types';
 
 export function TestimonialsSection({ section }: { section: HomepageSection }) {
@@ -36,8 +37,9 @@ export function TestimonialsSection({ section }: { section: HomepageSection }) {
               <div className="mt-5 flex items-center gap-3 border-t border-border pt-4">
                 {t.avatar ? (
                   <img
-                    src={t.avatar}
+                    src={optimizedImageUrl(t.avatar, 100)}
                     alt={t.clientName}
+                    loading="lazy"
                     className="h-10 w-10 rounded-full object-cover ring-2 ring-background"
                   />
                 ) : (

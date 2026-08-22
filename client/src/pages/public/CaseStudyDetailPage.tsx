@@ -6,6 +6,7 @@ import { Container } from '@/components/ui/Container';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { Reveal } from '@/components/ui/Reveal';
 import { caseStudiesApi } from '@/api/caseStudies.api';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 
 export function CaseStudyDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -52,7 +53,7 @@ export function CaseStudyDetailPage() {
 
         {caseStudy.coverImage && (
           <Reveal className="mt-10 overflow-hidden rounded-3xl border border-border">
-            <img src={caseStudy.coverImage} alt={caseStudy.title} className="w-full object-cover" />
+            <img src={optimizedImageUrl(caseStudy.coverImage, 1400)} alt={caseStudy.title} loading="lazy" className="w-full object-cover" />
           </Reveal>
         )}
 
@@ -105,7 +106,7 @@ export function CaseStudyDetailPage() {
           <div className="mt-14 grid gap-4 sm:grid-cols-2">
             {caseStudy.images.map((src) => (
               <div key={src} className="overflow-hidden rounded-2xl border border-border">
-                <img src={src} alt="" className="w-full object-cover" />
+                <img src={optimizedImageUrl(src, 900)} alt="" loading="lazy" className="w-full object-cover" />
               </div>
             ))}
           </div>

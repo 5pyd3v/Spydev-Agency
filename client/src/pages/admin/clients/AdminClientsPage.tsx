@@ -9,6 +9,7 @@ import { ConfirmDialog } from '@/components/admin/ConfirmDialog';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { FieldWrapper, Input, Select } from '@/components/admin/form/FormField';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 import type { Client } from '@/types/entities';
 
 interface FormState {
@@ -79,7 +80,9 @@ export function AdminClientsPage() {
               header: 'Client',
               render: (c) => (
                 <div className="flex items-center gap-3">
-                  {c.logoUrl && <img src={c.logoUrl} alt={c.name} className="h-6 w-auto object-contain" />}
+                  {c.logoUrl && (
+                    <img src={optimizedImageUrl(c.logoUrl, 100)} alt={c.name} loading="lazy" className="h-6 w-auto object-contain" />
+                  )}
                   <span className="text-sm font-medium text-foreground">{c.name}</span>
                 </div>
               ),

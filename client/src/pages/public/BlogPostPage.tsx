@@ -6,6 +6,7 @@ import { Container } from '@/components/ui/Container';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { Reveal } from '@/components/ui/Reveal';
 import { blogPostsApi } from '@/api/blogPosts.api';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 
 function formatDate(date?: string) {
   if (!date) return '';
@@ -54,7 +55,7 @@ export function BlogPostPage() {
             {author && (
               <span className="flex items-center gap-2">
                 {author.avatar ? (
-                  <img src={author.avatar} alt={author.name} className="h-6 w-6 rounded-full object-cover" />
+                  <img src={optimizedImageUrl(author.avatar, 64)} alt={author.name} loading="lazy" className="h-6 w-6 rounded-full object-cover" />
                 ) : (
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 text-[10px] font-semibold text-accent">
                     {author.name.charAt(0)}
@@ -69,7 +70,7 @@ export function BlogPostPage() {
 
         {post.coverImage && (
           <Reveal className="mt-8 overflow-hidden rounded-3xl border border-border">
-            <img src={post.coverImage} alt={post.title} className="w-full object-cover" />
+            <img src={optimizedImageUrl(post.coverImage, 1400)} alt={post.title} loading="lazy" className="w-full object-cover" />
           </Reveal>
         )}
 

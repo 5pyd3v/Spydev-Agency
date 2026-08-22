@@ -9,6 +9,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { Input } from '@/components/admin/form/FormField';
 import { Button } from '@/components/ui/Button';
 import { ConfirmDialog } from '@/components/admin/ConfirmDialog';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 import type { Media } from '@/types';
 
 function formatBytes(bytes: number) {
@@ -24,6 +25,7 @@ export function AdminMediaPage() {
   const debouncedSearch = useDebounce(search, 300);
   const [deleting, setDeleting] = useState<Media | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
   const { data, isLoading } = useQuery({
     queryKey: ['media', debouncedSearch],
@@ -32,12 +34,16 @@ export function AdminMediaPage() {
   const items = data?.data ?? [];
 
   const uploadMutation = useMutation({
-    mutationFn: (files: File[]) => mediaApi.upload(files),
+    mutationFn: (files: File[]) => {
+      setUploadProgress(0);
+      return mediaApi.upload(files, 'spydev', setUploadProgress);
+    },
     onSuccess: (uploaded) => {
       toast.success(`Uploaded ${uploaded.length} file${uploaded.length > 1 ? 's' : ''}`);
       queryClient.invalidateQueries({ queryKey: ['media'] });
     },
     onError: (err) => toast.error(getApiErrorMessage(err, 'Upload failed')),
+    onSettled: () => setUploadProgress(null),
   });
 
   const deleteMutation = useMutation({
@@ -94,6 +100,21 @@ export function AdminMediaPage() {
         Drag and drop images here, or use the Upload button.
       </div>
 
+      {uploadProgress !== null && (
+        <div className="mt-4 rounded-2xl border border-border bg-surface p-4">
+          <div className="flex items-center justify-between text-xs font-medium text-foreground">
+            <span>Uploading…</span>
+            <span>{uploadProgress}%</span>
+          </div>
+          <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-background">
+            <div
+              className="h-full rounded-full bg-accent transition-[width] duration-200 ease-out"
+              style={{ width: `${uploadProgress}%` }}
+            />
+          </div>
+        </div>
+      )}
+
       <div className="mt-6 relative max-w-sm">
         <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search media…" className="pl-10" />
@@ -108,7 +129,12 @@ export function AdminMediaPage() {
 
         {items.map((item) => (
           <div key={item._id} className="group relative aspect-square overflow-hidden rounded-2xl border border-border bg-surface">
-            <img src={item.url} alt={item.altText || item.originalName} className="h-full w-full object-cover" />
+            <img
+              src={optimizedImageUrl(item.url, 300)}
+              alt={item.altText || item.originalName}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
             <div className="absolute inset-0 flex flex-col justify-between bg-black/0 p-2 opacity-0 transition-all group-hover:bg-black/50 group-hover:opacity-100">
               <div className="flex justify-end gap-1">
                 <button

@@ -7,6 +7,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { fadeInUp, reducedMotionVariants } from '@/animations/variants';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 import { motion } from 'framer-motion';
 
 export function TeamPage() {
@@ -43,7 +44,12 @@ export function TeamPage() {
             >
               <div className="flex items-center gap-4">
                 {member.profileImage ? (
-                  <img src={member.profileImage} alt={member.name} className="h-14 w-14 rounded-2xl object-cover" />
+                  <img
+                    src={optimizedImageUrl(member.profileImage, 150)}
+                    alt={member.name}
+                    loading="lazy"
+                    className="h-14 w-14 rounded-2xl object-cover"
+                  />
                 ) : (
                   <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 font-display text-lg font-semibold text-accent">
                     {member.name.charAt(0)}

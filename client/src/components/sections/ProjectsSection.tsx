@@ -8,6 +8,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { buttonVariants } from '@/components/ui/Button';
 import { CARD_TONES } from '@/utils/cardTones';
 import { CATEGORY_LABELS, CATEGORY_TONE_INDEX } from '@/utils/projectCategories';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 import type { HomepageSection } from '@/types';
 import type { Project } from '@/types/entities';
 
@@ -34,8 +35,9 @@ function ProjectImage({ project }: { project: Project }) {
     <div className="relative flex h-full w-full items-center justify-center overflow-hidden" style={backdrop}>
       {project.coverImage && !broken ? (
         <img
-          src={project.coverImage}
+          src={optimizedImageUrl(project.coverImage, 700)}
           alt={project.name}
+          loading="lazy"
           onError={() => setBroken(true)}
           className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
         />

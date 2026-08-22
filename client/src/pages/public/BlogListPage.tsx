@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { blogPostsApi } from '@/api/blogPosts.api';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 
 function formatDate(date?: string) {
   if (!date) return '';
@@ -43,7 +44,12 @@ export function BlogListPage() {
               >
                 <div className="aspect-[16/9] overflow-hidden bg-background">
                   {post.coverImage ? (
-                    <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img
+                      src={optimizedImageUrl(post.coverImage, 700)}
+                      alt={post.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">
                       <span className="font-display text-2xl font-semibold text-muted-foreground/30">SD</span>

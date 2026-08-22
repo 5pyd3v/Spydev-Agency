@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { Reveal } from '@/components/ui/Reveal';
 import { buttonVariants } from '@/components/ui/Button';
 import { projectsApi } from '@/api/projects.api';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 
 export function ProjectDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -69,7 +70,7 @@ export function ProjectDetailPage() {
 
         {project.coverImage && (
           <Reveal className="mt-10 overflow-hidden rounded-3xl border border-border">
-            <img src={project.coverImage} alt={project.name} className="w-full object-cover" />
+            <img src={optimizedImageUrl(project.coverImage, 1400)} alt={project.name} loading="lazy" className="w-full object-cover" />
           </Reveal>
         )}
 
@@ -92,7 +93,7 @@ export function ProjectDetailPage() {
           <div className="mt-14 grid gap-4 sm:grid-cols-2">
             {project.screenshots.map((src) => (
               <div key={src} className="overflow-hidden rounded-2xl border border-border">
-                <img src={src} alt="" className="w-full object-cover" />
+                <img src={optimizedImageUrl(src, 900)} alt="" loading="lazy" className="w-full object-cover" />
               </div>
             ))}
           </div>

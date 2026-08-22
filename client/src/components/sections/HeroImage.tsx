@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { optimizedImageUrl } from '@/utils/cloudinary';
 
 export function HeroImage({ src }: { src: string }) {
   const reduced = useReducedMotion();
@@ -14,7 +15,7 @@ export function HeroImage({ src }: { src: string }) {
       />
 
       <div className="relative h-full w-full overflow-hidden rounded-[2.5rem] border border-border shadow-glow">
-        <img src={src} alt="" className="h-full w-full object-cover" loading="eager" />
+        <img src={optimizedImageUrl(src, 900)} alt="" className="h-full w-full object-cover" loading="eager" fetchPriority="high" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
 
         <div className="glass absolute bottom-5 left-5 right-5 flex items-center gap-3 rounded-2xl px-4 py-3">
